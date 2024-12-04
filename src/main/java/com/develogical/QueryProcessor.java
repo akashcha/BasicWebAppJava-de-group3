@@ -13,6 +13,14 @@ public class QueryProcessor {
         if (query.contains("your name")) {
             return "RobTest";
         }
+        if (query.toLowerCase().matches(".*\\d+ to the power of \\d+\\?.*")) {
+            String[] parts = query.split(" ");
+            try {
+                int base = Integer.parseInt(parts[2]);
+                int exponent = Integer.parseInt(parts[5]);
+                return String.valueOf((int) Math.pow(base, exponent));
+            } catch (NumberFormatException ignored) {}
+        }
 
         return "";
     }
