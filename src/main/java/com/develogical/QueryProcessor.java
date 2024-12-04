@@ -13,32 +13,16 @@ public class QueryProcessor {
         if (query.contains("your name")) {
             return "RobTest";
         }
-        if (query.toLowerCase().matches(".*\\d+ to the power of \\d+\\?.*")) {
-            String[] parts = query.split(" ");
+
+        if (query.toLowerCase().matches(".*what is \\d+ minus \\d+.*")) {
             try {
-                int base = Integer.parseInt(parts[2]);
-                int exponent = Integer.parseInt(parts[5]);
-                return String.valueOf((int) Math.pow(base, exponent));
-            } catch (NumberFormatException ignored) {}
-        }
-
-        // if (query.toLowerCase().matches("What is ^\\d+$ plus ^\\d+$ plus ^\\d+$?")) {
-        //     String[] parts = query.split(" ");
-        //     try {
-        //         int num1 = Integer.parseInt(parts[2]);
-        //         int num2 = Integer.parseInt(parts[5]);
-        //         int num3 = Integer.parseInt(parts[]);
-        //         return String.valueOf((int) Math.pow(base, exponent));
-        //     } catch (NumberFormatException ignored) {}
-        //     return (86+79+21);
-        // }
-
-        if (query.contains("What is 86 plus 79 plus 21?")) {
-            return ("" + 86+79+21);
-        }
-
-        if (query.contains("What is ^\\d+$ minus ^\\d+$?")) {
-            return (74-31 + "");
+                String[] parts = query.split(" ");
+                int num1 = Integer.parseInt(parts[2]); // The first number
+                int num2 = Integer.parseInt(parts[4].replaceAll("[^0-9]", "")); // Remove any non-numeric characters
+                return String.valueOf(num1 - num2);
+            } catch (NumberFormatException ignored) {
+                return "Error processing subtraction query";
+            }
         }
 
         return "";
