@@ -34,6 +34,39 @@ public class QueryProcessorTest {
         String query = "What is 29 minus 17?";
         String result = queryProcessor.process(query);
 
-        assertEquals("12", result, "Subtraction query result should be 12");
+        assertEquals("Subtraction query result should be 12", "12", result );
     }
+
+
+    @Test
+    public void testPrimeNumberQuerySingleValue() {
+        QueryProcessor queryProcessor = new QueryProcessor();
+
+        // Test case for "Which of the following numbers are primes: 3, 51, 57, 54, 33?"
+        String query = "Which of the following numbers are primes: 3, 51, 57, 54, 33?";
+        String result = queryProcessor.process(query);
+
+        // Verify the result is "3"
+        assertEquals("The query should return only the prime numbers from the list: 3", "3", result);
+    }
+
+    @Test
+    public void testPrimeNumberQueryMultipleValue() {
+        QueryProcessor queryProcessor = new QueryProcessor();
+
+        // Test case for "Which of the following numbers are primes: 3, 51, 57, 54, 33?"
+        String query = "Which of the following numbers are primes: 3, 5, 51, 57, 54, 33?";
+        String result = queryProcessor.process(query);
+
+        // Verify the result is "3"
+        assertEquals("The query should return only the prime numbers from the list: 3, 5", "3, 5", result);
+    }
+
+    @Test
+    public void testAdditionQuery() {
+        QueryProcessor processor = new QueryProcessor();
+        String query = "What is 67 plus 78 plus 29?";
+        String response = processor.process(query);
+        assertEquals("The sum of 67, 78, and 29 should be 174.", "174", response);
+        }
 }
