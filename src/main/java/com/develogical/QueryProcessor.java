@@ -1,5 +1,6 @@
 package com.develogical;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class QueryProcessor {
         if (query.toLowerCase().matches(".*what is \\d+ minus \\d+.*")) {
             try {
                 String[] parts = query.split(" ");
-                int num1 = Integer.parseInt(parts[2]); 
+                int num1 = Integer.parseInt(parts[2]);
                 int num2 = Integer.parseInt(parts[4].replaceAll("[^0-9]", ""));
                 return String.valueOf(num1 - num2);
             } catch (NumberFormatException ignored) {
@@ -29,17 +30,14 @@ public class QueryProcessor {
         }
 
         if (query.toLowerCase().contains("which of the following numbers are primes")) {
-            // Extract the part after the colon
             String numbersPart = query.substring(query.indexOf(":") + 1).trim();
-        
-            // Remove the trailing question mark if present
             if (numbersPart.endsWith("?")) {
                 numbersPart = numbersPart.substring(0, numbersPart.length() - 1).trim();
             }
-        
+
             String[] numberStrings = numbersPart.split(",\\s*");
             List<String> primes = new ArrayList<>();
-        
+
             for (String numberStr : numberStrings) {
                 try {
                     int number = Integer.parseInt(numberStr.trim());
@@ -54,8 +52,8 @@ public class QueryProcessor {
         }
 
         if (query.toLowerCase().matches(".*what is (\\d+)( plus (\\d+))*\\??")) {
-        
-            String numbersPart = query.replaceAll("[^0-9\\s]", "").trim(); 
+
+            String numbersPart = query.replaceAll("[^0-9\\s]", "").trim();
             String[] numberStrings = numbersPart.split("\\s+"); // Split by spaces
             int sum = 0;
             for (String numberStr : numberStrings) {
@@ -63,9 +61,27 @@ public class QueryProcessor {
             }
             return String.valueOf(sum);
         }
+        if (query.toLowerCase().matches(".*what is \\d+ to the power of \\d+\\??.*")) {
+            try {
+                String baseAndExponent = query.replaceAll("[^0-9 ]", "").trim();
+                String[] parts = baseAndExponent.split(" ");
+                
+                if (parts.length < 2) {
+                    return "Invalid input for power calculation.";
+                }
+                
+                int base = Integer.parseInt(parts[0]);
+                int exponent = Integer.parseInt(parts[5]);
+                BigInteger result = BigInteger.valueOf(base).pow(exponent);
+                return result.toString();
+            } catch (NumberFormatException e) {
+                return "Invalid input for power calculation.";
+            }
+        }
 
         return "";
     }
+
     private boolean isPrime(int number) {
         if (number <= 1) {
             return false;
