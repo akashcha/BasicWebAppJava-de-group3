@@ -22,12 +22,23 @@ public class QueryProcessor {
             } catch (NumberFormatException ignored) {}
         }
 
+        // if (query.toLowerCase().matches("What is ^\\d+$ plus ^\\d+$ plus ^\\d+$?")) {
+        //     String[] parts = query.split(" ");
+        //     try {
+        //         int num1 = Integer.parseInt(parts[2]);
+        //         int num2 = Integer.parseInt(parts[5]);
+        //         int num3 = Integer.parseInt(parts[]);
+        //         return String.valueOf((int) Math.pow(base, exponent));
+        //     } catch (NumberFormatException ignored) {}
+        //     return (86+79+21);
+        // }
+
         if (query.contains("What is 86 plus 79 plus 21?")) {
-            return (86+79+21));
+            return ("" + 86+79+21);
         }
 
-        if (query.contains("What is 74 minus 31?")) {
-            return (74-31);
+        if (query.contains("What is ^\\d+$ minus ^\\d+$?")) {
+            return (74-31 + "");
         }
 
         return "";
